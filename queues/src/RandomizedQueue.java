@@ -190,5 +190,26 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             int a = queue.dequeue();
             StdOut.println(b + "-" + a + ", queue size = " + queue.size());
         }
+        try {
+            queue.dequeue();
+        }
+        catch (Exception e){
+            StdOut.println("Queue is empty");
+        }
+        try {
+            queue.enqueue(null);
+        }
+        catch(Exception e){
+            StdOut.println("Null input not valid.");
+        }
+
+        queue.enqueue(4);
+        queue.enqueue(47);
+
+        while (!queue.isEmpty()){
+            StdOut.println(queue.sample());
+            StdOut.println(queue.dequeue());
+        }
+
     }
 }
