@@ -1,11 +1,8 @@
 import java.util.Iterator;
-import java.util.Random;
-
 import edu.princeton.cs.algs4.StdIn;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdRandom;
-import org.jetbrains.annotations.NotNull;
-// TODO: Replace random insertions and removals with random slection without replacement.
+// TODO: Replace random insertions and removals with random selection without replacement.
 // See Wikipedia: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
 // For ideas on how to generate random number without replacement.
 public class RandomizedQueue<Item> implements Iterable<Item> {
@@ -20,6 +17,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             throw new UnsupportedOperationException();
         }
         public Item next(){
+            if(!hasNext())
+                throw new java.util.NoSuchElementException();
             return randQueue[ord[n++]];
         }
         private int[] ord = new int[sz];
@@ -193,13 +192,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         try {
             queue.dequeue();
         }
-        catch (Exception e){
+        catch (java.util.NoSuchElementException e){
             StdOut.println("Queue is empty");
         }
         try {
             queue.enqueue(null);
         }
-        catch(Exception e){
+        catch(IllegalArgumentException e){
             StdOut.println("Null input not valid.");
         }
 

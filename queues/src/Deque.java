@@ -129,27 +129,27 @@ public class Deque<Item> implements Iterable<Item>{
         try {
             D.removeFirst();
         }
-        catch (Exception e){
+        catch (java.util.NoSuchElementException e){
             StdOut.println("Dequeue is empty");
         }
 
         try {
             D.removeLast();
         }
-        catch (Exception e){
+        catch (java.util.NoSuchElementException e){
             StdOut.println("Dequeue is empty");
         }
 
         try {
             D.addLast(null);
         }
-        catch(Exception e){
+        catch(IllegalArgumentException e){
             StdOut.println("Null input not valid.");
         }
         try {
             D.addFirst(null);
         }
-        catch(Exception e){
+        catch(IllegalArgumentException e){
             StdOut.println("Null input not valid.");
         }
     }
