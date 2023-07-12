@@ -31,7 +31,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 //                a[i] = i;
 //            }
 //            StdRandom.shuffle(a);
+            ord = StdRandom.permutation(sz);
 
+            /*
             int[] a = StdRandom.permutation(capacity);
 
             int currOrdIdx = 0;
@@ -43,7 +45,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
                     currOrdIdx++;
                 }
             }
-
+*/
             // Choose non-null indexes
             /*
             int currQueueIdx = 0;
@@ -83,17 +85,27 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             resize(2*randQueue.length);
 //            randOrder = randOrd(2*randQueue.length);
         }
-        int idx = StdRandom.uniformInt(randQueue.length);
-        while(randQueue[idx]!=null){
-            idx = StdRandom.uniformInt(randQueue.length);
-        }
-        randQueue[idx] = item;
+
+        int j = StdRandom.uniformInt(sz+1);
+        if (j != sz)
+            randQueue[sz] = randQueue[j];
+        randQueue[j] = item;
+//
+//        int idx = StdRandom.uniformInt(randQueue.length);
+//        while(randQueue[idx]!=null){
+//            idx = StdRandom.uniformInt(randQueue.length);
+//        }
+//        randQueue[idx] = item;
         sz++;
     }
 
     private void resize(int capacity){
         Item[] copy = (Item[]) new Object[capacity];
-        int n = randQueue.length;
+        for(int i = 0; i < sz; i++)
+            copy[i] = randQueue[i];
+        randQueue = copy;
+
+/*        int n = randQueue.length;
         int newCnt = 0;
         for(int i = 0; i < n; i++) {
             if (randQueue[i] != null) {
@@ -102,11 +114,13 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             if (newCnt == capacity)
                 break;
         }
-        randQueue = copy;
+        randQueue = copy;*/
     }
 
     // Return array of integers returned in random order
     // based off of StdRandom.shuffle
+/*
+
     private int[] randOrd(int n){
         if(n < 1)
             throw new IllegalArgumentException();
@@ -123,19 +137,25 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 //            a[r] = i;
 //        }
     }
+*/
 
     // remove and return a random item
     public Item dequeue() {
         if(isEmpty())
             throw new java.util.NoSuchElementException();
-        int idx = StdRandom.uniformInt(randQueue.length);
+
+        Item item = randQueue[--sz];
+        randQueue[sz] = null;
+
+/*        int idx = StdRandom.uniformInt(randQueue.length);
         while(randQueue[idx]==null){
             idx = StdRandom.uniformInt(randQueue.length);
         }
 
         Item item = randQueue[idx];
         randQueue[idx] = null;
-        sz--;
+        sz--;*/
+
         if(sz > 0 && sz == randQueue.length/4)
             resize(randQueue.length/2);
         return item;
@@ -159,10 +179,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if(isEmpty())
             throw new java.util.NoSuchElementException();
 
+        int idx = StdRandom.uniformInt(sz);
+
+/*
+
         int idx = StdRandom.uniformInt(randQueue.length);
         while(randQueue[idx]==null){
             idx = StdRandom.uniformInt(randQueue.length);
         }
+*/
 
         return randQueue[idx];
 //        int i = StdRandom.uniformInt(sz);
