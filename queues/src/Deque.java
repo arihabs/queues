@@ -14,9 +14,11 @@ public class Deque<Item> implements Iterable<Item>{
     private Node first = null, last = null;
 
     private class DequeIterator implements Iterator<Item>{
+        private int n = 0;
         private Node current = first;
         public boolean hasNext(){
-            return current != null;
+            return n < sz;
+//            return current != null;
         }
         public void remove(){
             throw new UnsupportedOperationException();
@@ -26,6 +28,7 @@ public class Deque<Item> implements Iterable<Item>{
                 throw new java.util.NoSuchElementException();
             Item item = current.item;
             current = current.next;
+            n++;
             return item;
         }
     }
