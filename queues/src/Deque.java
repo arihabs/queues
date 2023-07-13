@@ -89,6 +89,8 @@ public class Deque<Item> implements Iterable<Item>{
         oldFirst = null;
         if (first!= null)
             first.prev = null;
+        else
+            last = null;
         sz--;
         return item;
     }
@@ -103,6 +105,8 @@ public class Deque<Item> implements Iterable<Item>{
         oldLast = null;
         if (last!= null)
             last.next = null;
+        else
+            first = null;
         sz--;
         return item;
     }
@@ -165,5 +169,9 @@ public class Deque<Item> implements Iterable<Item>{
         catch(IllegalArgumentException e){
             StdOut.println("Null input not valid.");
         }
+
+        Deque<String> D2 = new Deque<String>();
+        D2.addLast("LOITERTEST");
+        D2.removeFirst();
     }
 }
